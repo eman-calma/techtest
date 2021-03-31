@@ -1,7 +1,38 @@
-﻿
+﻿@using TechTest01.Domain.Catalog;
 @{
     ViewBag.Title = "Index";
 }
 
+@model IEnumerable<Product>
+
+
 <h2>Index</h2>
 
+
+<table>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(x => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(x => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(x => item.Slug)
+        </td>
+        <td>
+            @Html.DisplayFor(x => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(x => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(x => item.ImageUrl)
+        </td>
+    </tr>
+
+    }
+</table>

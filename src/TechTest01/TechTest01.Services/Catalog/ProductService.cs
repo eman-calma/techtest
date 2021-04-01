@@ -8,24 +8,24 @@ using TechTest01.Repository;
 
 namespace TechTest01.Services.Catalog
 {
-  public class ProductService : IProductService
-  {
-
-    private IRepository<Product> _productRepo;
-
-    public ProductService(IRepository<Product> productRepo)
+    public class ProductService : IProductService
     {
-      _productRepo = productRepo;
-    }
 
-    public Product GetById(int id)
-    {
-      return _productRepo.GetById(id);
-    }
+        private IRepository<Product> _productRepo;
 
-    public ICollection<Product> GetProducts()
-    {
-      return _productRepo.Table.ToList();
+        public ProductService(IRepository<Product> productRepo)
+        {
+            _productRepo = productRepo;
+        }
+
+        public Product GetBySlug(string slug)
+        {
+            return _productRepo.Table.Where(x => x.Slug == slug).FirstOrDefault();
+        }
+
+        public ICollection<Product> GetProducts()
+        {
+            return _productRepo.Table.ToList();
+        }
     }
-  }
 }

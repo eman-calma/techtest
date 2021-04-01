@@ -20,9 +20,16 @@ namespace TechTest01.Api.Controllers
 
         [Route("api/products")]
         [HttpGet]
-        public ICollection<Product> GetContacts()
+        public ICollection<Product> GetProducts()
         {
             return _productService.GetProducts();
+        }
+
+        [Route("api/products/{slug}")]
+        [HttpGet]
+        public Product GetContacts(string slug)
+        {
+            return _productService.GetBySlug(slug);
         }
     }
 }

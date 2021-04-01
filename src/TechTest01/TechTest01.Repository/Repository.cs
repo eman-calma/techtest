@@ -9,123 +9,123 @@ using TechTest01.Domain;
 
 namespace TechTest01.Repository
 {
-  public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
-  {
-    private readonly IDbContext _context;
-    private IDbSet<TEntity> _entities;
-
-    public Repository(IDbContext context)
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-      this._context = context;
-    }
+        private readonly IDbContext _context;
+        private IDbSet<TEntity> _entities;
 
-    public TEntity GetById(object id)
-    {
-      return this.Entities.Find(id);
-    }
-
-    public void Insert(TEntity entity)
-    {
-      try
-      {
-        if (entity == null)
+        public Repository(IDbContext context)
         {
-          throw new ArgumentNullException("entity");
-        }
-        this.Entities.Add(entity);
-        this._context.SaveChanges();
-      }
-      catch (DbEntityValidationException dbEx)
-      {
-        var msg = string.Empty;
-
-        foreach (var validationErrors in dbEx.EntityValidationErrors)
-        {
-          foreach (var validationError in validationErrors.ValidationErrors)
-          {
-            msg += string.Format("Property: {0} Error: {1}",
-            validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-          }
+            this._context = context;
         }
 
-        var fail = new Exception(msg, dbEx);
-        throw fail;
-      }
-    }
-
-    public void Update(TEntity entity)
-    {
-      try
-      {
-        if (entity == null)
+        public TEntity GetById(object id)
         {
-          throw new ArgumentNullException("entity");
+            return this.Entities.Find(id);
         }
-        this._context.SaveChanges();
-      }
-      catch (DbEntityValidationException dbEx)
-      {
-        var msg = string.Empty;
-        foreach (var validationErrors in dbEx.EntityValidationErrors)
-        {
-          foreach (var validationError in validationErrors.ValidationErrors)
-          {
-            msg += Environment.NewLine + string.Format("Property: {0} Error: {1}",
-            validationError.PropertyName, validationError.ErrorMessage);
-          }
-        }
-        var fail = new Exception(msg, dbEx);
-        throw fail;
-      }
-    }
 
-    public void Delete(TEntity entity)
-    {
-      try
-      {
-        if (entity == null)
+        public void Insert(TEntity entity)
         {
-          throw new ArgumentNullException("entity");
-        }
-        this.Entities.Remove(entity);
-        this._context.SaveChanges();
-      }
-      catch (DbEntityValidationException dbEx)
-      {
-        var msg = string.Empty;
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.Entities.Add(entity);
+                this._context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                var msg = string.Empty;
 
-        foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        msg += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+
+                var fail = new Exception(msg, dbEx);
+                throw fail;
+            }
+        }
+
+        public void Update(TEntity entity)
         {
-          foreach (var validationError in validationErrors.ValidationErrors)
-          {
-            msg += Environment.NewLine + string.Format("Property: {0} Error: {1}",
-            validationError.PropertyName, validationError.ErrorMessage);
-          }
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this._context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                var msg = string.Empty;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        msg += Environment.NewLine + string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                var fail = new Exception(msg, dbEx);
+                throw fail;
+            }
         }
-        var fail = new Exception(msg, dbEx);
-        throw fail;
-      }
-    }
 
-    public virtual IQueryable<TEntity> Table
-    {
-      get
-      {
-        return this.Entities;
-      }
-    }
-
-    private IDbSet<TEntity> Entities
-    {
-      get
-      {
-        if (_entities == null)
+        public void Delete(TEntity entity)
         {
-          _entities = _context.Set<TEntity>();
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.Entities.Remove(entity);
+                this._context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                var msg = string.Empty;
+
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        msg += Environment.NewLine + string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                var fail = new Exception(msg, dbEx);
+                throw fail;
+            }
         }
-        return _entities;
-      }
+
+        public virtual IQueryable<TEntity> Table
+        {
+            get
+            {
+                return this.Entities;
+            }
+        }
+
+        private IDbSet<TEntity> Entities
+        {
+            get
+            {
+                if (_entities == null)
+                {
+                    _entities = _context.Set<TEntity>();
+                }
+                return _entities;
+            }
+        }
     }
-  }
 }
 

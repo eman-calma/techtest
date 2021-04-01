@@ -1,0 +1,33 @@
+﻿@using TechTest01.Domain.Catalog;
+@{
+    ViewBag.Title = "Index";
+}
+
+@model Product
+
+
+<h2>Product</h2>
+
+
+<table>
+    <tr>
+        <td>
+            @Model.Id
+        </td>
+        <td>
+            @Model.Name
+        </td>
+        <td>
+            @Model.Slug
+        </td>
+        <td>
+            @Model.Price
+        </td>
+        <td>
+            @Model.Description
+        </td>
+        <td>
+            @Model.ImageUrl
+        </td>
+    </tr>
+</table>

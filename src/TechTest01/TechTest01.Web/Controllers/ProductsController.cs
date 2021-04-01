@@ -23,13 +23,13 @@ namespace TechTest01.Web.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            IEnumerable<Product> products = null;
+            ICollection<Product> products = null;
 
             try
             {
                 var getProducts = $"{APIDomain}/api/products";
 
-                products = JsonConvert.DeserializeObject<IEnumerable<Product>>(_restApiHelper.GetRequest(getProducts));
+                products = JsonConvert.DeserializeObject<ICollection<Product>>(_restApiHelper.GetRequest(getProducts));
 
             }
             catch (Exception ex)
@@ -38,6 +38,23 @@ namespace TechTest01.Web.Controllers
             }
 
             return View(products);
+        }
+
+        public ActionResult Product(string id)
+        {
+            Product product = null;
+
+            try
+            {
+                var getProduct = $"{APIDomain}/api/products/{id}";
+                product = JsonConvert.DeserializeObject<Product>(_restApiHelper.GetRequest(getProduct));
+            }
+            catch (Exception ex)
+            {
+                //Implement logger functionality here
+            }
+
+            return View(product);
         }
     }
 }

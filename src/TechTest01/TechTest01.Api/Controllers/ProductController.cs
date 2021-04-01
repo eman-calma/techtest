@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using TechTest01.Domain.Catalog;
 using TechTest01.Services.Catalog;
 
 namespace TechTest01.Api.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductController : ApiController
     {
         private IProductService _productService;

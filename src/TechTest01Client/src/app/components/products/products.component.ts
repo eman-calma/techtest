@@ -19,8 +19,7 @@ export class ProductsComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  getProducts() {
-    this.productService.getProducts().subscribe((result: any) => this.products = result);
-    console.log(this.products + ' test')
+  getProducts(){
+    this.productService.getProducts().subscribe((result: Array<Product>) => this.products = result);
   }
 }

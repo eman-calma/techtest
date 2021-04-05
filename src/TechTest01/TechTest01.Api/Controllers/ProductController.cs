@@ -29,7 +29,7 @@ namespace TechTest01.Api.Controllers
 
         [Route("api/products/{slug}")]
         [HttpGet]
-        public Product GetContacts(string slug)
+        public Product GetProductsBySlug(string slug)
         {
             return _productService.GetBySlug(slug);
         }
